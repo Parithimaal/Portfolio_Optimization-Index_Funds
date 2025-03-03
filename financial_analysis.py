@@ -24,7 +24,7 @@ class FinancialMetrics:
 
         return value_begin, value_end
 
-    def calculate_sharpe_ratio(self, prices_df):
+    def calculate_sharpe_ratio(self, df):
         """
         Calculates the Sharpe Ratio for a given set of index fund closing prices.
 
@@ -36,7 +36,7 @@ class FinancialMetrics:
         -Annualized sharpie ratio as a dictionary
         """
         # Daily returns
-        daily_returns = prices_df.pct_change().dropna()
+        daily_returns = df.pct_change().dropna()
         
         # Converting risk-free rate to daily (assuming 252 trading days)
         daily_risk_free_rate = (1 + self.risk_free_rate)**(1/252) - 1
@@ -50,12 +50,12 @@ class FinancialMetrics:
         return annualized_sharpe.iloc[0]
     
     @staticmethod
-    def plot_cumulative_returns(prices_df):
+    def plot_cumulative_returns(df):
         """
         Calculates the cumulative returns of the given data frame
         """
         # Calculate daily percentage change
-        df_normalized = prices_df.pct_change().dropna()  
+        df_normalized = df.pct_change().dropna()  
         # Convert to cumulative return (starting at 1)
         df_cumulative = (1 + df_normalized).cumprod()  
         fig = px.line(df_cumulative, x=df_cumulative.index, y=df_cumulative.columns,
@@ -81,7 +81,7 @@ class FinancialMetrics:
         for df, label in zip(dfs, labels):
             df = df.iloc[:, 0].pct_change().dropna()  # Use the first column (positional reference)
             df = (1 + df).cumprod() * 100  # Normalize: Start each asset at 100
-            df = df.to_frame(name=label)  # Convert Series to DataFrame and rename column
+            df = df.to_frame(name=label)  
             normalized_dfs.append(df)
     
         # Combine all DataFrames into one
@@ -103,4 +103,6 @@ class FinancialMetrics:
     def calculate_returns(df, years=1): #period is specified in number of years
         value_begin, value_end = FinancialMetrics._get_values(df, years)
         return_in_period = (value_end/value_begin) -1
-        return round(return_in_period,6)
+        return round(return_in_period,6)   
+       
+        

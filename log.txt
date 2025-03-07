@@ -1,0 +1,40 @@
+
+Problem: 
+- Name: unknown
+  Lower bound: 8.100132895506302e-05
+  Upper bound: 8.100132895506304e-05
+  Number of objectives: 1
+  Number of constraints: 21
+  Number of variables: 18
+  Number of binary variables: 9
+  Number of integer variables: 9
+  Number of continuous variables: 0
+  Number of nonzeros: 27
+  Sense: minimize
+  Number of solutions: 2
+Solver: 
+- Name: Gurobi 12.01
+  Status: ok
+  Wallclock time: 0.04700016975402832
+  Termination condition: optimal
+  Termination message: Model was solved to optimality (subject to tolerances), and an optimal solution is available.
+Solution: 
+- number of solutions: 0
+  number of solutions displayed: 0
+
+Solver Status: ok
+Solver Termination Condition: optimal
+
+Optimal portfolio weights:
+  bond: 26.42%
+  gold: 0.00%
+  dividend_appr: 0.00%
+  midcap: 0.00%
+  real_estate: 0.00%
+  sp500: 0.00%
+  russel2k: 0.00%
+  growth: 73.58%
+  emerging_mkt: 0.00%
+
+Portfolio Return: 12.00%
+Portfolio Variance: 8.100132895506304e-05

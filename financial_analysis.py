@@ -24,6 +24,12 @@ class FinancialMetrics:
 
         return value_begin, value_end
 
+    @staticmethod
+    def df_sliced_by_date(df, start_date, end_date):
+        df_filtered = df[df.index >= start_date and df.index <= end_date]
+        return df_filtered
+        
+    
     def calculate_sharpe_ratio(self, df):
         """
         Calculates the Sharpe Ratio for a given set of index fund closing prices.
@@ -104,5 +110,16 @@ class FinancialMetrics:
         value_begin, value_end = FinancialMetrics._get_values(df, years)
         return_in_period = (value_end/value_begin) -1
         return round(return_in_period,6)   
+
+
+    @staticmethod
+    def calculate_covariance_dict(all_df):
+        daily_returns_df = all_df.pct_change().dropna()
+        cov_df = daily_returns_df.cov()
+        cov_dict = {}
+        for asset1 in cov_df.columns:
+            for asset2 in cov_df.index:
+                cov_dict[(asset1, asset2)] = cov_df[asset1][asset2]
+        return cov_dict
        
         

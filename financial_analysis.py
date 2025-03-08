@@ -23,12 +23,7 @@ class FinancialMetrics:
         value_end = df_filtered.iloc[-1, 0]
 
         return value_begin, value_end
-
-    @staticmethod
-    def df_sliced_by_date(df, start_date, end_date):
-        df_filtered = df[df.index >= start_date and df.index <= end_date]
-        return df_filtered
-        
+     
     
     def calculate_sharpe_ratio(self, df):
         """
@@ -108,12 +103,13 @@ class FinancialMetrics:
     @staticmethod    
     def calculate_returns(df, years=1): #period is specified in number of years
         value_begin, value_end = FinancialMetrics._get_values(df, years)
-        return_in_period = (value_end/value_begin) -1
+        return_in_period = (value_end/value_begin) - 1
         return round(return_in_period,6)   
 
 
     @staticmethod
-    def calculate_covariance_dict(all_df):
+    def calculate_covariance_dict(all_dict):
+        all_df = pd.concat(all_dict.values(), axis=1)
         daily_returns_df = all_df.pct_change().dropna()
         cov_df = daily_returns_df.cov()
         cov_dict = {}
@@ -121,5 +117,11 @@ class FinancialMetrics:
             for asset2 in cov_df.index:
                 cov_dict[(asset1, asset2)] = cov_df[asset1][asset2]
         return cov_dict
-       
+
+    @staticmethod
+    def valid_trading_date(df, given_date):
+        df_filtered = df[df.index >= given_date]
+        valid_date = df_filtered.index[0]
+        return valid_date
+     
         

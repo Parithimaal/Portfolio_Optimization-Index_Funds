@@ -12,3 +12,8 @@ class Utils:
         for col in all_prices_df.columns:
             all_prices_dict[col] = all_prices_df[[col]]
         return all_prices_dict, all_prices_df
+    
+    @staticmethod
+    def df_sliced_by_date(df, start_date, end_date):
+        df_filtered = df[(df.index >= start_date) & (df.index <= end_date)]
+        return df_filtered

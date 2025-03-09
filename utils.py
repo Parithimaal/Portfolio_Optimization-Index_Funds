@@ -5,6 +5,9 @@ import yfinance as yf
 class Utils:
     @staticmethod
     def fetch_data(tickers, labels, start_date, end_date):
+        """
+        Fetches the data for the given tickers and labels from Yahoo Finance API.
+        """
         ticker_label = dict()
         all_prices_df = yf.download(tickers, start=start_date, end=end_date)['Close']
         all_prices_df = all_prices_df.rename(columns=dict(zip(tickers, labels)))
@@ -15,5 +18,8 @@ class Utils:
     
     @staticmethod
     def df_sliced_by_date(df, start_date, end_date):
+        """
+        Slices the DataFrame df by the given start_date and end_date.
+        """
         df_filtered = df[(df.index >= start_date) & (df.index <= end_date)]
         return df_filtered

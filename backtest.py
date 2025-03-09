@@ -9,6 +9,9 @@ class Backtesting():
         }
 
     def sell_and_calc_pf_val(self, current_unit_price_dict, date: str, investment_amount, optimal_weights_dict):
+        """
+        Sells the assets in the portfolio and calculates and returns the portfolio value.
+        """
         portfolio_value = 0
         for asset in current_unit_price_dict.keys():
             df = self.transaction_dict[asset]
@@ -20,6 +23,10 @@ class Backtesting():
             
             
     def buy(self, current_unit_price_dict, date: str, investment_amount, optimal_weights_dict):
+        """
+        Buys the assets as per the optimal weights from solver and investment amount from selling. Updates the transaction_dict with
+        the units bougt, unit price of asset and value of asset on the given date.
+        """
         for asset in current_unit_price_dict.keys():
             unit_price = current_unit_price_dict[asset]
             value = optimal_weights_dict[asset]*investment_amount

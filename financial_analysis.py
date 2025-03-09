@@ -96,12 +96,18 @@ class FinancialMetrics:
         
     @staticmethod
     def calculate_cagr(df, years=1): #period is specified in number of years
+        """
+        Calculates the Compound Annual Growth Rate (CAGR) for a given set of index fund closing prices df for the specified years.
+        """
         value_begin, value_end = FinancialMetrics._get_values(df, years)
         cagr = (value_end/value_begin)**(1/years) - 1
         return round(cagr,6)
         
     @staticmethod    
     def calculate_returns(df, years=1): #period is specified in number of years
+        """
+        Calculates the return for a given set of index fund closing prices df for the specified years.
+        """
         value_begin, value_end = FinancialMetrics._get_values(df, years)
         return_in_period = (value_end/value_begin) - 1
         return round(return_in_period,6)   
@@ -109,6 +115,9 @@ class FinancialMetrics:
 
     @staticmethod
     def calculate_covariance_dict(all_dict):
+        """
+        Calculates the covariance matrix for a given set of assets.
+        """
         all_df = pd.concat(all_dict.values(), axis=1)
         daily_returns_df = all_df.pct_change().dropna()
         cov_df = daily_returns_df.cov()
@@ -120,6 +129,9 @@ class FinancialMetrics:
 
     @staticmethod
     def valid_trading_date(df, given_date):
+        """
+        For a given trading date (given_date), this function returns the next valid trading date in the data frame.
+        """
         df_filtered = df[df.index >= given_date]
         valid_date = df_filtered.index[0]
         return valid_date
